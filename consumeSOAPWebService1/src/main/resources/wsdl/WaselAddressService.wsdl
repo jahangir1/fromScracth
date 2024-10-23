@@ -1,0 +1,179 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:tns="http://tempuri.org/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"  name="WaselAddressService" targetNamespace="http://tempuri.org/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+            <xs:import namespace="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0"/>
+            <xs:import namespace="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3"/>
+            <xs:import namespace="http://yefi.gov.sa/PersonProfileCommonTypes/xml/schemas/version2.0"/>
+            <xs:element name="GetCommercialWaselAddress">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element xmlns:q1="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0" maxOccurs="1" minOccurs="1" name="IdentifierType" type="q1:ItemChoiceType1"/>
+                        <xs:element maxOccurs="1" minOccurs="1" name="Identifier" type="xs:string"/>
+                        <xs:element maxOccurs="1" minOccurs="1" name="LaborOfficeID" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetCommercialWaselAddressResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element xmlns:q2="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0" maxOccurs="1" minOccurs="0" name="GetCommercialWaselAddressResult" type="q2:getCommercialWaselAddressResponseStructure"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element xmlns:q3="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3" name="commonErrorElement" type="q3:CommonErrorStructure"/>
+            <xs:element name="GetIndividualWaselAddress">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element xmlns:q4="http://yefi.gov.sa/PersonProfileCommonTypes/xml/schemas/version2.0" maxOccurs="1" minOccurs="1" name="IdentifierType" type="q4:ItemChoiceType"/>
+                        <xs:element maxOccurs="1" minOccurs="1" name="Identifier" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetIndividualWaselAddressResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element xmlns:q5="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0" maxOccurs="1" minOccurs="0" name="GetIndividualWaselAddressResult" type="q5:getIndividualWaselAddressResponseStructure"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0" elementFormDefault="qualified" targetNamespace="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/version/1.0">
+            <xs:import namespace="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3"/>
+            <xs:import namespace="http://yefi.gov.sa/SaudiPost/WaselAddressSchema/xml/schemas/version1.0"/>
+            <xs:simpleType name="ItemChoiceType1">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CommercialRegistrationNumber"/>
+                    <xs:enumeration value="LaborOfficeIdentity"/>
+                    <xs:enumeration value="SevenHundredNumber"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType name="getCommercialWaselAddressResponseStructure">
+                <xs:sequence>
+                    <xs:choice maxOccurs="1" minOccurs="1">
+                        <xs:element xmlns:q1="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3" maxOccurs="1" minOccurs="0" ref="q1:ServiceError"/>
+                        <xs:element xmlns:q2="http://yefi.gov.sa/SaudiPost/WaselAddressSchema/xml/schemas/version1.0" form="unqualified" maxOccurs="1" minOccurs="0" name="getCommercialWaselAddressResponseDetailObject" type="q2:WaselAddressesListStructure"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getIndividualWaselAddressResponseStructure">
+                <xs:sequence>
+                    <xs:choice maxOccurs="1" minOccurs="1">
+                        <xs:element xmlns:q3="http://yefi.gov.sa/SaudiPost/WaselAddressSchema/xml/schemas/version1.0" form="unqualified" maxOccurs="1" minOccurs="0" name="getIndividualWaselAddressResponseDetailObject" type="q3:WaselAddressesListStructure"/>
+                        <xs:element xmlns:q4="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3" maxOccurs="1" minOccurs="0" ref="q4:ServiceError"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3" elementFormDefault="qualified" targetNamespace="http://yefi.gov.sa/YEFIErrorStructure/xml/schemas/version2.3">
+            <xs:element name="ServiceError" type="tns:CommonErrorStructure"/>
+            <xs:complexType name="CommonErrorStructure">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="SourceAgency" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="ErrorType" type="tns:errorType"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="RaisedBy" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="Code" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="ErrorText" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Insert" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="errorType">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="BusinessError"/>
+                    <xs:enumeration value="TechnicalError"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://yefi.gov.sa/SaudiPost/WaselAddressSchema/xml/schemas/version1.0" elementFormDefault="qualified" targetNamespace="http://yefi.gov.sa/SaudiPost/WaselAddressSchema/xml/schemas/version1.0">
+            <xs:complexType name="WaselAddressesListStructure">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="WaselAddress" type="tns:WaselAddressStructure"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="WaselAddressStructure">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="BuildingNumber" type="xs:int"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="AdditionalNumber" type="xs:int"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="ZipCode" type="xs:int"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="UnitNumber" type="xs:int"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="DistrictAreaArabic" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="DistrictAreaEnglish" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="StreetNameArabic" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="StreetNameEnglish" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="CityNameArabic" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="CityNameEnglish" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="FullName" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://yefi.gov.sa/PersonProfileCommonTypes/xml/schemas/version2.0" elementFormDefault="qualified" targetNamespace="http://yefi.gov.sa/PersonProfileCommonTypes/xml/schemas/version2.0">
+            <xs:simpleType name="ItemChoiceType">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="IqamaNumber"/>
+                    <xs:enumeration value="NationalID"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IWaselAddressService_GetCommercialWaselAddress_InputMessage">
+        <wsdl:part element="tns:GetCommercialWaselAddress" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IWaselAddressService_GetCommercialWaselAddress_OutputMessage">
+        <wsdl:part element="tns:GetCommercialWaselAddressResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IWaselAddressService_GetCommercialWaselAddress_commonErrorElement_FaultMessage">
+        <wsdl:part element="tns:commonErrorElement" name="detail"/>
+    </wsdl:message>
+    <wsdl:message name="IWaselAddressService_GetIndividualWaselAddress_InputMessage">
+        <wsdl:part element="tns:GetIndividualWaselAddress" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IWaselAddressService_GetIndividualWaselAddress_OutputMessage">
+        <wsdl:part element="tns:GetIndividualWaselAddressResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IWaselAddressService_GetIndividualWaselAddress_commonErrorElement_FaultMessage">
+        <wsdl:part element="tns:commonErrorElement" name="detail"/>
+    </wsdl:message>
+    <wsdl:portType name="IWaselAddressService">
+        <wsdl:operation name="GetCommercialWaselAddress">
+            <wsdl:input message="tns:IWaselAddressService_GetCommercialWaselAddress_InputMessage" wsaw:Action="http://tempuri.org/IWaselAddressService/GetCommercialWaselAddress"/>
+            <wsdl:output message="tns:IWaselAddressService_GetCommercialWaselAddress_OutputMessage" wsaw:Action="http://tempuri.org/IWaselAddressService/GetCommercialWaselAddressResponse"/>
+            <wsdl:fault message="tns:IWaselAddressService_GetCommercialWaselAddress_commonErrorElement_FaultMessage" name="commonErrorElement" wsaw:Action="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/1.0/getCommercialWaselAddress"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetIndividualWaselAddress">
+            <wsdl:input message="tns:IWaselAddressService_GetIndividualWaselAddress_InputMessage" wsaw:Action="http://tempuri.org/IWaselAddressService/GetIndividualWaselAddress"/>
+            <wsdl:output message="tns:IWaselAddressService_GetIndividualWaselAddress_OutputMessage" wsaw:Action="http://tempuri.org/IWaselAddressService/GetIndividualWaselAddressResponse"/>
+            <wsdl:fault message="tns:IWaselAddressService_GetIndividualWaselAddress_commonErrorElement_FaultMessage" name="commonErrorElement" wsaw:Action="http://yesser.gov.sa/SaudiPost/SPWaselAddressService/1.0/GetIndividualWaselAddress"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_IWaselAddressService" type="tns:IWaselAddressService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetCommercialWaselAddress">
+            <soap:operation soapAction="http://tempuri.org/IWaselAddressService/GetCommercialWaselAddress" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="commonErrorElement">
+                <soap:fault name="commonErrorElement" namespace="" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetIndividualWaselAddress">
+            <soap:operation soapAction="http://tempuri.org/IWaselAddressService/GetIndividualWaselAddress" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="commonErrorElement">
+                <soap:fault name="commonErrorElement" namespace="" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="WaselAddressService">
+        <wsdl:port binding="tns:BasicHttpBinding_IWaselAddressService" name="BasicHttpBinding_IWaselAddressService">
+            <soap:address location="https://apiservices.balady.gov.sa/v1/gsb/wasel-address-service"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
